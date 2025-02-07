@@ -1,21 +1,19 @@
-import useDepenseReducer from "../reducer/depenseReducer";
+import React from "react";
+import { DepenseProvider } from "../context/depenseContext";
 import AddDepense from "./addDepense"
 import ListeDepense from "./listeDepense"
+import TotalDepense from "./totalDepense";
 
 const Display = () => {
 
-    const [state, dispatch] = useDepenseReducer(); 
-    const {depensesList} = state
-
-    const addItem = () => {
-        dispatch({type:'addItem'})
-    }
-
     return(
-        <>
-            <AddDepense/>
-            <ListeDepense liste={depensesList}/>
-        </>
+        
+        <DepenseProvider>
+            <AddDepense />
+            <ListeDepense />
+            <TotalDepense />
+        </DepenseProvider>
+        
     )
 }
 

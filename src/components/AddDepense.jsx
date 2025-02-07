@@ -1,7 +1,13 @@
 import { useState } from "react";
-import useDepenseReducer from "../reducer/depenseReducer";
+import useDepenseContext from "../context/depenseContext";
+
 
 const AddDepense = () => {
+
+    const [label, setLabel] = useState('');
+    const [montant, setMontant] = useState('');
+    const [category, setCategory] = useState('');
+    const {dispatch} = useDepenseContext();
 
     const options = () => { 
         var arr = ["Alimentation","Logement","Transport","Divertissement","Santé","Éducation","Autres"]
@@ -9,37 +15,47 @@ const AddDepense = () => {
             return <option key={i} value={i}>{i}</option>
         })}
 
-        const [label, setLabel] = useState('');
-        const [montant, setMontant] = useState('');
-        const [category, setCategory] = useState('');
-        const [state, dispatch] = useDepenseReducer();
-      
         const handleSubmit = (e) => {
-          e.preventDefault();
-      
-          const nouvelleDepense = {
-            label,
-            montant: parseFloat(montant),
-            category,
-          };
-      
-          dispatch({ type: 'addItem', payload: nouvelleDepense })
-      
-          setLabel('')
-          setMontant('')
-          setCategory('')
-        }
+            e.preventDefault();
+    
+            const nouvelleDepense = {
+                label,
+                montant: parseFloat(montant),
+                category,
+                id: Date.now()
+            };
+            // console.log(nouvelleDepense)
+    
+            dispatch({ type: 'addItem', payload: nouvelleDepense})
+    
+            setLabel('')
+            setMontant('')
+            setCategory('')
+        };
 
     return(
         <div>
-            <h3>Ajouter une depense</h3>
+            <h3>Ajouter une dépense</h3>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={label} onChange={(e) => setLabel(e.target.value)}/>
-                <input type="number" value={montant} onChange={(e) => setMontant(e.target.value)}/>
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                <input
+                    type="text"
+                    placeholder="Libellé"
+                    value={label}
+                    onChange={(e) => setLabel(e.target.value)}
+                    required
+                />
+                <input
+                    type="number"
+                    placeholder="Montant"
+                    value={montant}
+                    onChange={(e) => setMontant(e.target.value)}
+                    required
+                />
+                <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                    <option value="">Category</option>
                     {options()}
                 </select>
-                <button type="submit" >Ajouter</button>
+                <button type="submit">Ajouter</button>
             </form>
         </div>
     )

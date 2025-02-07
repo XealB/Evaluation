@@ -1,13 +1,25 @@
-const ListeDepense = ({liste}) => {
+import useDepenseContext from "../context/depenseContext"
+
+const ListeDepense = () => {
+
+    const {state, dispatch} = useDepenseContext()
+    const {depensesList} = state
+
+    const handleDelete = (id) => {
+        dispatch({ type: 'deleteItem', payload: id });
+    };
 
     const list = () => {
-        return liste.map((i) => {
+        return depensesList.map((i) => {
             return (
-                <li>{i}</li>
+                <>
+                <li key={i.id}>{i.label} --- {i.montant}€ --- {i.category}
+                <button onClick={() => handleDelete(i.id)}>Supprimer</button>
+                </li>
+                </>
             )
         })}
     
-
     return(
         <>
             <h3>Liste de vos depense</h3>
