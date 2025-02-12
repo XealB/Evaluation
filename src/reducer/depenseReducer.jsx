@@ -8,18 +8,16 @@ const initialState = {
 const depenseReducer = (state, action) => {
     switch(action.type){
         case 'addItem':
-            const addedDepense = { ...action.payload }
             return{
                 ...state,
                 depensesList : [...state.depensesList, action.payload],
-                totalDepense: [...state.depensesList, addedDepense].reduce((a, b) => a + b.montant, 0)
+                totalDepense: [...state.depensesList, action.payload].reduce((a, b) => a + b.montant, 0)
             }
         case 'deleteItem':
             return {
                 ...state,
-                // totalDepense: [state.depensesList.filter((depense) => depense.id !== action.payload)].reduce((a, b) => a - b.montant, 0),
-                depensesList: [...state.depensesList],
-                
+                depensesList: state.depensesList.filter(i => i.id !== action.payload),
+                totalDepense: state.depensesList.filter(i => i.id !== action.payload).reduce((a, b) => a + b.montant, 0)
             };
             default:
                 return state

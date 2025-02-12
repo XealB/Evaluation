@@ -13,9 +13,12 @@ const ListeDepense = () => {
         return depensesList.map((i) => {
             return (
                 <>
-                <li key={i.id}>{i.label} --- {i.montant}€ --- {i.category}
-                <button onClick={() => handleDelete(i.id)}>Supprimer</button>
-                </li>
+                <tr key={i.id}>
+                    <td>{i.label}</td>
+                    <td>{i.montant}€</td>
+                    <td>{i.category}</td>
+                    <td><button onClick={() => handleDelete(i.id)}>Supprimer</button></td>
+                </tr>
                 </>
             )
         })}
@@ -23,9 +26,20 @@ const ListeDepense = () => {
     return(
         <>
             <h3>Liste de vos depense</h3>
-            <ul>
-                {list()}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>Montant</th>
+                        <th>Categorie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {list()}
+                </tbody>
+
+            </table>
         </>
     )
 

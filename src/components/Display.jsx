@@ -1,8 +1,8 @@
 import React from "react";
 import { DepenseProvider } from "../context/depenseContext";
 import AddDepense from "./addDepense"
-import ListeDepense from "./listeDepense"
 import TotalDepense from "./totalDepense";
+import ListeDepense from "./ListeDepense";
 
 const Display = () => {
 

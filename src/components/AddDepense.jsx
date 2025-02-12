@@ -12,20 +12,19 @@ const AddDepense = () => {
     const options = () => { 
         var arr = ["Alimentation","Logement","Transport","Divertissement","Santé","Éducation","Autres"]
         return arr.map((i) => {
-            return <option key={i} value={i}>{i}</option>
+            return <option key={arr.indexOf(i)} value={i}>{i}</option>
         })}
 
         const handleSubmit = (e) => {
             e.preventDefault();
     
             const nouvelleDepense = {
+                id: Date.now(),
                 label,
                 montant: parseFloat(montant),
                 category,
-                id: Date.now()
+                
             };
-            // console.log(nouvelleDepense)
-    
             dispatch({ type: 'addItem', payload: nouvelleDepense})
     
             setLabel('')
